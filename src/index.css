@@ -1,0 +1,20 @@
+/* Remove horizontal overflow */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  padding-top:30px;
+}
+
+/* Ensure main sections don’t exceed viewport */
+section, header, main, footer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Fix Bootstrap container spacing on smaller screens */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
