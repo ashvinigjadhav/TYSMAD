@@ -6,7 +6,7 @@
 
     </title>
 
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="\src\css\index.css">
 
 </head>
 
@@ -20,7 +20,7 @@
 
                 <div  class="lhs">
 
-                    <img src="logo.png">
+                    <img src="\src\assets\logo.png">
 		    <h1>Unit-II GIT MERGE DEMO</h1> 
                     <h1><b>PharmEasy</b></h1>
                 </div>
@@ -29,9 +29,9 @@
 
                     <a href="#home">Home</a>
                     <a href="#about">About Us</a>
-                    <a href="prod.html">Products</a>
-                    <a href="login.html">Login</a>
-                    <a href="reg.html">Register</a>
+                    <a href="\src\html\prod.html">Products</a>
+                    <a href="\src\html\login.html">Login</a>
+                    <a href="\src\html\reg.html">Register</a>
                     <a href="#contact">Contact Us</a>
                     <button onclick="logout()">Logout</button>
                 </div>
@@ -51,7 +51,7 @@
 
             <div class="abtRhs">
 
-                <img src="abt.png">
+                <img src="\src\assets\abt.png">
 
             </div>
 
@@ -86,7 +86,7 @@
 
                 <div class="items">
 
-                    <img src="p1.jpg">
+                    <img src="\src\assets\p1.jpg">
                     <h2>Rahul Joshi</h2>
                     <p>Frontend Developer</p>
 
@@ -94,7 +94,7 @@
 
                 <div class="items">
 
-                    <img src="p2.png">
+                    <img src="\src\assets\p2.png">
                     <h2>Shrinivas Sherikar</h2>
                     <p>Backend Developer</p>
 
@@ -102,7 +102,7 @@
 
                 <div class="items">
 
-                    <img src="p3.png">
+                    <img src="\src\assets\p3.png">
                     <h2>Zia Kapoor</h2>
                     <p>Product Manager</p>
 
@@ -110,7 +110,7 @@
 
                 <div class="items">
 
-                    <img src="p4.png">
+                    <img src="\src\assets\p4.png">
                     <h2>Varad Mandhare</h2>
                     <p>Database Developer</p>
 
@@ -125,7 +125,7 @@
 
             <div class="cLhs">
                 
-                <img src="contact.png">
+                <img src="\src\assets\contact.png">
 
             </div>
 
@@ -160,7 +160,7 @@
         function logout() {
             sessionStorage.removeItem('loggedInUser');
             alert("You have been logged out.");
-            window.location.href = "login.html"; // Redirect to login page after logout
+            window.location.href = "\src\html\login.html"; // Redirect to login page after logout
         }
     </script>
 </body>
