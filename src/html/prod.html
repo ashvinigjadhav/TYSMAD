@@ -111,7 +111,7 @@
 
     <footer>
 
-        <p>Copyright © 2025 , Designed by Samyak Kedari</p>
+        <p>Copyright © 2025 , Designed by Ibrahim Poonawala</p>
     </footer>
 
     <script>
@@ -124,7 +124,21 @@
         function logout() {
             sessionStorage.removeItem('loggedInUser');
             alert("You have been logged out.");
-            window.location.href = "login.html"; // Redirect to login page after logout
+            window.location.href = "login.html"; 
+        }
+        function validateForm() {
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passInput.value;
+            const validEmail = email.endsWith('@gmail.com');
+            const validPassword = password.length >= 6;
+            const genderSelected = isGenderSelected();
+    
+            if (name && validEmail && validPassword && genderSelected) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
         }
     </script>
 
