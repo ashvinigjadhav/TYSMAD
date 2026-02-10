@@ -4,6 +4,8 @@ function About() {
       {/* Hero / Intro */}
       <header className="py-5 bg-primary text-white">
         <div className="container">
+            <div className="harsh pandey">
+                <div className="ADT23SOCB1521">
           <div className="row align-items-center">
             <div className="col-md-7">
               <h1 className="display-6 fw-bold">About PharmEasy</h1>
