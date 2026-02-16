@@ -3,11 +3,9 @@
 <head>
     <title>
         PharmEasy
-
     </title>
 
     <link rel="stylesheet" href="login.css">
-
 </head>
 
 <body>
@@ -18,10 +16,9 @@
 
             <div class="container">
 
-                <div  class="lhs">
+                <div class="lhs">
 
                     <img src="logo.png">
-
                     <h1><b>PharmEasy</b></h1>
                 </div>
 
@@ -32,11 +29,12 @@
                     <a href="prod.html">Products</a>
                     <a href="#login">Login</a>
                     <a href="reg.html">Register</a>
-                    <form action="logout.php" method="POST">
+
+                    <form action="logout.php" method="POST" id="logoutForm">
                         <button type="submit">Logout</button>
                     </form>
-                    
-                    <button onclick="logout()">Logout</button>
+
+                    <button onclick="logout()" id="logoutBtn">Logout</button>
      
                 </div>
             </div>
@@ -47,25 +45,28 @@
 
         <form action="login.php" method="POST">
 
-
             <h1>Login Form</h1>
+
             <div class="formA">
 
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="pass" placeholder="Password" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+
+                <input type="password" id="pass" name="password" placeholder="Password" required>
+
                 <input type="checkbox" id="showPass"> Show Password
 
-                <input type="submit" value="Login" id="submitBtn" disabled>
+                <a href="forgot.html" style="display:block; margin-top:8px;">
+                    Forgot Password?
+                </a>
 
+                <input type="submit" value="Login" id="submitBtn" disabled>
 
             </div>
 
         </form>
     </main>
 
-    
     <footer>
-
         <p>Copyright © 2025 , Designed by Samyak Kedari</p>
     </footer>
 
@@ -73,37 +74,49 @@
         const emailInput = document.getElementById('email');
         const passInput = document.getElementById('pass');
         const submitBtn = document.getElementById('submitBtn');
-    
-     
+        const logoutBtn = document.getElementById('logoutBtn');
+        const logoutForm = document.getElementById('logoutForm');
+        const showPassCheckbox = document.getElementById('showPass');
+
+        // If already logged in
         const currentUser = sessionStorage.getItem('loggedInUser');
         if (currentUser) {
             alert("You are already logged in!");
             window.location.href = "index.html"; 
         }
-    
+
         function validateLoginForm() {
             const email = emailInput.value.trim();
             const password = passInput.value;
-    
+
             const isEmailValid = email.endsWith('@gmail.com');
             const isPasswordValid = password.length >= 6;
-    
+
             submitBtn.disabled = !(isEmailValid && isPasswordValid);
         }
-    
+
         emailInput.addEventListener('input', validateLoginForm);
         passInput.addEventListener('input', validateLoginForm);
-    
+
+        // Show / Hide password
+        showPassCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                passInput.type = "text";
+            } else {
+                passInput.type = "password";
+            }
+        });
+
         document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
-    
+
             const email = emailInput.value.trim();
             const password = passInput.value;
-    
+
             const users = JSON.parse(localStorage.getItem('users')) || [];
-    
+
             const user = users.find(u => u.email === email && u.password === password);
-    
+
             if (user) {
                 sessionStorage.setItem('loggedInUser', JSON.stringify(user));
                 alert(`Welcome, ${user.name}!`);
@@ -113,14 +126,13 @@
             }
         });
 
-
-
+        // Hide logout buttons if not logged in
         const loggedInUser = sessionStorage.getItem('loggedInUser');
         if (!loggedInUser) {
-            
-            document.querySelector('button').style.display = 'none';
+            logoutBtn.style.display = 'none';
+            logoutForm.style.display = 'none';
         }
-    
+
         function logout() {
             sessionStorage.removeItem('loggedInUser');
             alert("You have been logged out.");
@@ -128,5 +140,7 @@
         }
 
     </script>
-    
+
 </body>
+
+</html>
