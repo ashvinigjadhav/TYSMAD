@@ -73,3 +73,11 @@ margin-left: 30px;
    gap: 20px;
  
 }
+.fade-in {
+    animation: fadeEffect 1s ease-in;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
