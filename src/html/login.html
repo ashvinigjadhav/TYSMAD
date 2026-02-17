@@ -1,29 +1,22 @@
 <html>
 
 <head>
-    <title>
-        PharmEasy
-    </title>
-
+    <title>PharmEasy</title>
     <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
 
     <header>
-        
         <nav class="navbar">
-
             <div class="container">
 
                 <div class="lhs">
-
                     <img src="logo.png">
                     <h1><b>PharmEasy</b></h1>
                 </div>
 
                 <div class="rhs">
-
                     <a href="index.html">Home</a>
                     <a href="index.html">About Us</a>
                     <a href="prod.html">Products</a>
@@ -35,7 +28,6 @@
                     </form>
 
                     <button onclick="logout()" id="logoutBtn">Logout</button>
-     
                 </div>
             </div>
         </nav>
@@ -50,14 +42,16 @@
             <div class="formA">
 
                 <input type="email" id="email" name="email" placeholder="Email" required>
-
                 <input type="password" id="pass" name="password" placeholder="Password" required>
 
-                <input type="checkbox" id="showPass"> Show Password
+                <input type="checkbox" id="showPass"> Show Password <br><br>
+
+                <!-- REMEMBER ME -->
+                <input type="checkbox" id="rememberMe"> Remember Me
 
                 <a href="forgot.html" style="display:block; margin-top:8px;">
-                    Forgot Password?
-                </a>
+        Forgot Password?
+    </a>
 
                 <input type="submit" value="Login" id="submitBtn" disabled>
 
@@ -77,12 +71,20 @@
         const logoutBtn = document.getElementById('logoutBtn');
         const logoutForm = document.getElementById('logoutForm');
         const showPassCheckbox = document.getElementById('showPass');
+        const rememberMe = document.getElementById('rememberMe');
 
-        // If already logged in
+        // 🔥 CHECK IF USER ALREADY LOGGED IN (REMEMBER ME)
+        const savedUser = localStorage.getItem('rememberUser');
+        if (savedUser) {
+            alert("Welcome back!");
+            window.location.href = "index.html";
+        }
+
+        // Normal session login check
         const currentUser = sessionStorage.getItem('loggedInUser');
         if (currentUser) {
             alert("You are already logged in!");
-            window.location.href = "index.html"; 
+            window.location.href = "index.html";
         }
 
         function validateLoginForm() {
@@ -98,35 +100,39 @@
         emailInput.addEventListener('input', validateLoginForm);
         passInput.addEventListener('input', validateLoginForm);
 
-        // Show / Hide password
-        showPassCheckbox.addEventListener('change', function () {
-            if (this.checked) {
-                passInput.type = "text";
-            } else {
-                passInput.type = "password";
-            }
+        // Show password
+        showPassCheckbox.addEventListener('change', function() {
+            passInput.type = this.checked ? "text" : "password";
         });
 
-        document.querySelector('form').addEventListener('submit', function (e) {
+        document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const email = emailInput.value.trim();
             const password = passInput.value;
 
             const users = JSON.parse(localStorage.getItem('users')) || [];
-
             const user = users.find(u => u.email === email && u.password === password);
 
             if (user) {
+
+                // normal login session
                 sessionStorage.setItem('loggedInUser', JSON.stringify(user));
+
+                // remember me login
+                if (rememberMe.checked) {
+                    localStorage.setItem('rememberUser', JSON.stringify(user));
+                }
+
                 alert(`Welcome, ${user.name}!`);
                 window.location.href = "index.html";
+
             } else {
                 alert("Invalid email or password.");
             }
         });
 
-        // Hide logout buttons if not logged in
+        // Hide logout if not login
         const loggedInUser = sessionStorage.getItem('loggedInUser');
         if (!loggedInUser) {
             logoutBtn.style.display = 'none';
@@ -135,10 +141,10 @@
 
         function logout() {
             sessionStorage.removeItem('loggedInUser');
+            localStorage.removeItem('rememberUser');
             alert("You have been logged out.");
-            window.location.href = "login.html"; 
+            window.location.href = "login.html";
         }
-
     </script>
 
 </body>
